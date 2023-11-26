@@ -8,7 +8,7 @@ public class FinalProject {
         jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //creating panel
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new BorderLayout());
         JPanel foodPanel = new JPanel();
         JPanel drinkPanel = new JPanel();
         JPanel paymentPanel = new JPanel();
@@ -24,8 +24,8 @@ public class FinalProject {
         tabbedPane.addTab("Payment",paymentPanel);
 
         //drink Panel
-        ImageIcon colaImg=new ImageIcon(getClass().getResource("cola.png"));
-        ImageIcon sprImg=new ImageIcon(getClass().getResource("sprite.png"));
+        ImageIcon colaImg=new ImageIcon(getClass().getResource("cola.PNG"));
+        ImageIcon sprImg=new ImageIcon(getClass().getResource("sprite.jpg"));
         JButton cola=new JButton(colaImg);
         JButton sprite=new JButton(sprImg);
 
@@ -63,9 +63,26 @@ public class FinalProject {
         JLabel shopping_cart = new JLabel("Shopping Cart");
         shopping_cart.setFont(new Font("Molto", Font.BOLD, 25));
 
-        //adding label to panels
-        panel.add(shopping_cart);
+        //button panel for right component
+        JPanel buttonPanel=new JPanel();
 
+        //setting button panel to be aligned along left side of right panel
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        //clear and checkout buttons
+        JButton clear=new JButton("Clear");
+        JButton check=new JButton("Check Out");
+        clear.setPreferredSize(new Dimension(150,50));
+        check.setPreferredSize(new Dimension(150,50));
+        buttonPanel.add(check);
+        buttonPanel.add(clear);
+
+        //adding buttonPanel to the bottom of the panel
+        panel.add(buttonPanel,BorderLayout.SOUTH);
+
+        //adding label to panels
+        panel.add(shopping_cart,BorderLayout.NORTH);
+        
         //adding respective pane to respective side
         splitPane.setLeftComponent(tabbedPane);
         splitPane.setRightComponent(panel);
