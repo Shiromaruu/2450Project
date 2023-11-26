@@ -3,58 +3,45 @@ import java.awt.*;
 
 public class FinalProject {
     FinalProject(){
-        JFrame jfrm = new JFrame("mcdonald's GUI");
+        JFrame jfrm = new JFrame("McGUI's GUI");
         jfrm.setSize(700,500);
         jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //creating panel
         JPanel panel = new JPanel();
-        JPanel Food = new JPanel();
-        JPanel Drink = new JPanel();
-        JPanel Payment = new JPanel();
-
-
-        //creating spit pane
-        JSplitPane sp = new JSplitPane();
-        sp.setDividerLocation(350);
+        JPanel foodPanel = new JPanel();
+        JPanel drinkPanel = new JPanel();
+        JPanel paymentPanel = new JPanel();
+        
+        //create splitPane
+        JSplitPane splitPane = new JSplitPane();
+        splitPane.setDividerLocation(350);
 
         //creating tab pane
-        JTabbedPane tp = new JTabbedPane();
-        tp.addTab("Food",Food);
-        tp.addTab("Drink",Drink);
-        tp.addTab("Payment",Payment);
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.addTab("Food",foodPanel);
+        tabbedPane.addTab("Drink",drinkPanel);
+        tabbedPane.addTab("Payment",paymentPanel);
 
         //creating labels
-        JLabel jlab1 = new JLabel("Shopping Cart");
-        JLabel jlab2 = new JLabel("Test");
-        jlab1.setFont(new Font("Molto", Font.BOLD, 25));
-
-
-
+        JLabel shopping_cart = new JLabel("Shopping Cart");
+        shopping_cart.setFont(new Font("Molto", Font.BOLD, 25));
 
         //adding label to panels
-        panel.add(jlab1);
-
-
+        panel.add(shopping_cart);
 
         //adding respective pane to respective side
-        sp.setLeftComponent(tp);
-        sp.setRightComponent(panel);
-
+        splitPane.setLeftComponent(tabbedPane);
+        splitPane.setRightComponent(panel);
 
         //add to frame
-        jfrm.add(sp);
+        jfrm.add(splitPane);
 
         //set visible
         jfrm.setVisible(true);
-
     }
 
     public static void main(String[] args){
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new FinalProject();
-            }
-        });
+        SwingUtilities.invokeLater(FinalProject::new);
     }
 }
