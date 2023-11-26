@@ -23,6 +23,44 @@ public class FinalProject {
         tabbedPane.addTab("Drink",drinkPanel);
         tabbedPane.addTab("Payment",paymentPanel);
 
+        //Food Panel
+        ImageIcon food1 = new ImageIcon(getClass().getResource("cheeseburger.jpg"));
+        ImageIcon food2 = new ImageIcon(getClass().getResource("double cheeseburger.jpg"));
+        ImageIcon food3 = new ImageIcon(getClass().getResource("fries.jpg"));
+        ImageIcon food4 = new ImageIcon(getClass().getResource("cheeseburger combo.jpg"));
+        ImageIcon food5 = new ImageIcon(getClass().getResource("double cheeseburger combo.jpg"));
+
+        JButton cb = new JButton("Cheeseburger",food1);
+        cb.setVerticalTextPosition(SwingConstants.BOTTOM);
+        cb.setHorizontalTextPosition(SwingConstants.CENTER);
+        JButton dcb = new JButton("Double Cheeseburger",food2);
+        dcb.setVerticalTextPosition(SwingConstants.BOTTOM);
+        dcb.setHorizontalTextPosition(SwingConstants.CENTER);
+        JButton fSmall = new JButton("S Fries",food3);
+        fSmall.setVerticalTextPosition(SwingConstants.BOTTOM);
+        fSmall.setHorizontalTextPosition(SwingConstants.CENTER);
+        JButton fMedium = new JButton("M Fries",food3);
+        fMedium.setVerticalTextPosition(SwingConstants.BOTTOM);
+        fMedium.setHorizontalTextPosition(SwingConstants.CENTER);
+        JButton fLarge = new JButton("L Fries",food3);
+        fLarge.setVerticalTextPosition(SwingConstants.BOTTOM);
+        fLarge.setHorizontalTextPosition(SwingConstants.CENTER);
+        JButton cbCombo = new JButton("Cheeseburger Combo",food4);
+        cbCombo.setVerticalTextPosition(SwingConstants.BOTTOM);
+        cbCombo.setHorizontalTextPosition(SwingConstants.CENTER);
+        JButton dcbCombo = new JButton("Double Cheeseburger Combo",food5);
+        dcbCombo.setVerticalTextPosition(SwingConstants.BOTTOM);
+        dcbCombo.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        //add food buttons to Food panel
+        Food.add(cb);
+        Food.add(dcb);
+        Food.add(fSmall);
+        Food.add(fMedium);
+        Food.add(fLarge);
+        Food.add(cbCombo);
+        Food.add(dcbCombo);
+
         //drink Panel
         ImageIcon colaImg=new ImageIcon(getClass().getResource("cola.PNG"));
         ImageIcon sprImg=new ImageIcon(getClass().getResource("sprite.jpg"));
