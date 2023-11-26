@@ -1,16 +1,18 @@
 import javax.swing.*;
 import java.awt.*;
 
+
 public class FinalProject {
+
     FinalProject(){
         JFrame jfrm = new JFrame("McGUI's GUI");
         jfrm.setSize(700,500);
         jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //creating panel
-        JPanel panel = new JPanel();
+        JPanel shoppingPane = new JPanel();
         JPanel foodPanel = new JPanel();
-        JPanel drinkPanel = new JPanel();
+        drinkPanel = new JPanel();
         JPanel paymentPanel = new JPanel();
         
         //create splitPane
@@ -18,63 +20,95 @@ public class FinalProject {
         splitPane.setDividerLocation(350);
 
         //creating tab pane
-        JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Food",foodPanel);
-        tabbedPane.addTab("Drink",drinkPanel);
-        tabbedPane.addTab("Payment",paymentPanel);
+        JTabbedPane foodMenuTabbedPane = new JTabbedPane();
+        foodMenuTabbedPane.addTab("Food",foodPanel);
+        foodMenuTabbedPane.addTab("Drink",drinkPanel);
+        foodMenuTabbedPane.addTab("Payment",paymentPanel);
 
         //drink Panel
-        ImageIcon colaImg=new ImageIcon(getClass().getResource("cola.png"));
-        ImageIcon sprImg=new ImageIcon(getClass().getResource("sprite.png"));
-        JButton cola=new JButton(colaImg);
-        JButton sprite=new JButton(sprImg);
+        String cola = "cola";
+        setMenuItem (cola, 15);
 
-        cola.setPreferredSize(new Dimension(100,100));
-        sprite.setPreferredSize(new Dimension(100,100));
-
-        //add buttons to drink panel
-        drinkPanel.add(cola);
-        drinkPanel.add(sprite);
+        String sprite = "sprite";
+        setMenuItem (sprite, 10);
 
         JScrollBar jVert=new JScrollBar(Adjustable.VERTICAL,0,50,0,300);
         drinkPanel.add(jVert);
 
-
         //payment panel
-        JRadioButton cc=new JRadioButton("Credit Card");
-        JRadioButton ven=new JRadioButton("Venmo");
-        JRadioButton cash=new JRadioButton("Cash");
+        JRadioButton creditRB = new JRadioButton("Credit Card");
+        JRadioButton venmoRB = new JRadioButton("Venmo");
+        JRadioButton cashRB = new JRadioButton("Cash");
 
-        cc.setFont(new Font("Molto",Font.ITALIC,25));
-        ven.setFont(new Font("Molto",Font.ITALIC,25));
-        cash.setFont(new Font("Molto", Font.ITALIC,25));
+
+        creditRB.setFont(setDefaultFont());
+        venmoRB.setFont(setDefaultFont());
+        cashRB.setFont(setDefaultFont());
 
         //add to button group for mutual exclusive function(one only)
-        ButtonGroup bg=new ButtonGroup();
-        bg.add(cc);
-        bg.add(ven);
-        bg.add(cash);
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(creditRB);
+        bg.add(venmoRB);
+        bg.add(cashRB);
 
-        paymentPanel.add(cc);
-        paymentPanel.add(ven);
-        paymentPanel.add(cash);
+        paymentPanel.add(creditRB);
+        paymentPanel.add(venmoRB);
+        paymentPanel.add(cashRB);
 
         //creating labels
         JLabel shopping_cart = new JLabel("Shopping Cart");
-        shopping_cart.setFont(new Font("Molto", Font.BOLD, 25));
+        shopping_cart.setFont(setDefaultFont());
+        costLabel = new JLabel("Total Cost: ");
+        costLabel.setFont(setDefaultFont());
 
         //adding label to panels
-        panel.add(shopping_cart);
+        shoppingPane.add(shopping_cart);
+        shoppingPane.add(costLabel);
 
         //adding respective pane to respective side
-        splitPane.setLeftComponent(tabbedPane);
-        splitPane.setRightComponent(panel);
+        splitPane.setLeftComponent(foodMenuTabbedPane);
+        splitPane.setRightComponent(shoppingPane);
 
         //add to frame
         jfrm.add(splitPane);
 
         //set visible
         jfrm.setVisible(true);
+    }
+    JLabel costLabel;
+    double totalCost;
+    JPanel drinkPanel;
+    private void setMenuItem (String foodItem, double cost) {
+        //set the image
+        String imagePath = "testImages/" + foodItem + "Logo.png";
+        ImageIcon foodItemImg = new ImageIcon(getClass().getResource(imagePath));
+
+        //set the button
+        JButton foodItemButton = new JButton(foodItemImg);
+
+        //set the preferred image size
+        foodItemButton.setPreferredSize(new Dimension(100,100));
+
+        //add button to drink panel
+        drinkPanel.add(foodItemButton);
+
+        //set Action Listener
+        remoteActionListener(foodItemButton, cost);
+    }
+
+    private void remoteActionListener(JButton drinkButton, double cost) {
+        drinkButton.addActionListener(e -> {
+            totalCost += cost;
+            costLabel.setText("Total Cost: $" + (totalCost));
+        });
+    }
+
+    //default font generator for the java file
+    public Font setDefaultFont (int font) {
+        return new Font ("Molto",Font.ITALIC,font);
+    }
+    public Font setDefaultFont () {
+        return new Font ("Molto",Font.ITALIC,22);
     }
 
     public static void main(String[] args){
