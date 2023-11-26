@@ -32,6 +32,7 @@ public class FinalProject {
         cola.setPreferredSize(new Dimension(100,100));
         sprite.setPreferredSize(new Dimension(100,100));
 
+        //add buttons to drink panel
         drinkPanel.add(cola);
         drinkPanel.add(sprite);
 
