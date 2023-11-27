@@ -64,10 +64,10 @@ public class FinalProject {
         //drink Panel
         ImageIcon colaImg = new ImageIcon(getClass().getResource("cola.PNG"));
         ImageIcon sprImg = new ImageIcon(getClass().getResource("sprite.jpg"));
-        ImageIcon pepImg = new ImageIcon(getClass().getResource("pepsi.png"));
+        ImageIcon pepImg = new ImageIcon(getClass().getResource("pepsi.jpg"));
         JButton cola = new JButton(colaImg);
         JButton sprite = new JButton(sprImg);
-        JButton pepsi = new JButton(pepImage);
+        JButton pepsi = new JButton(pepImg);
 
         JPanel drinks = new JPanel(new GridLayout(4,4,1,1));
 
