@@ -4,15 +4,15 @@ import java.awt.*;
 public class FinalProject {
     FinalProject(){
         JFrame jfrm = new JFrame("McGUI's GUI");
-        jfrm.setSize(700,500);
+        jfrm.setSize(700,600);
         jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //creating panel
         JPanel panel = new JPanel(new BorderLayout());
         JPanel foodPanel = new JPanel();
-        JPanel drinkPanel = new JPanel();
+        JPanel drinkPanel = new JPanel(new BorderLayout());
         JPanel paymentPanel = new JPanel();
-        
+
         //create splitPane
         JSplitPane splitPane = new JSplitPane();
         splitPane.setDividerLocation(350);
@@ -53,13 +53,13 @@ public class FinalProject {
         dcbCombo.setHorizontalTextPosition(SwingConstants.CENTER);
 
         //add food buttons to Food panel
-        Food.add(cb);
-        Food.add(dcb);
-        Food.add(fSmall);
-        Food.add(fMedium);
-        Food.add(fLarge);
-        Food.add(cbCombo);
-        Food.add(dcbCombo);
+        foodPanel.add(cb);
+        foodPanel.add(dcb);
+        foodPanel.add(fSmall);
+        foodPanel.add(fMedium);
+        foodPanel.add(fLarge);
+        foodPanel.add(cbCombo);
+        foodPanel.add(dcbCombo);
 
         //drink Panel
         ImageIcon colaImg=new ImageIcon(getClass().getResource("cola.PNG"));
@@ -67,15 +67,34 @@ public class FinalProject {
         JButton cola=new JButton(colaImg);
         JButton sprite=new JButton(sprImg);
 
+        JPanel drinks=new JPanel(new GridLayout(4,4,1,1));
+
         cola.setPreferredSize(new Dimension(100,100));
         sprite.setPreferredSize(new Dimension(100,100));
 
-        //add buttons to drink panel
-        drinkPanel.add(cola);
-        drinkPanel.add(sprite);
+        drinks.add(cola);
+        drinks.add(sprite);
 
-        JScrollBar jVert=new JScrollBar(Adjustable.VERTICAL,0,50,0,300);
-        drinkPanel.add(jVert);
+        //add buttons to drink panel
+        drinkPanel.add(drinks,BorderLayout.NORTH);
+
+        //buttons for drink panel(sizes)
+        JRadioButton small=new JRadioButton("Small");
+        JRadioButton medium=new JRadioButton("Medium");
+        JRadioButton large=new JRadioButton("Large");
+
+        ButtonGroup sizegrp=new ButtonGroup();
+        sizegrp.add(small);
+        sizegrp.add(medium);
+        sizegrp.add(large);
+
+        //panel for size of drinks buttons
+        JPanel sizePanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        sizePanel.add(small);
+        sizePanel.add(medium);
+        sizePanel.add(large);
+
+        drinkPanel.add(sizePanel,BorderLayout.SOUTH);
 
 
         //payment panel
@@ -120,7 +139,7 @@ public class FinalProject {
 
         //adding label to panels
         panel.add(shopping_cart,BorderLayout.NORTH);
-        
+
         //adding respective pane to respective side
         splitPane.setLeftComponent(tabbedPane);
         splitPane.setRightComponent(panel);
