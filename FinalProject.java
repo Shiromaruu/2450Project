@@ -32,7 +32,7 @@ public class FinalProject {
 
         JButton cb = new JButton("Cheeseburger",food1);
         cb.setVerticalTextPosition(SwingConstants.BOTTOM);
-        cb.setHorizontalTextPosition(SwingConstants.CENTER);
+        cb.setHorizontalTextPosition(SwingConstants.CENTER); 
         JButton dcb = new JButton("Double Cheeseburger",food2);
         dcb.setVerticalTextPosition(SwingConstants.BOTTOM);
         dcb.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -62,34 +62,38 @@ public class FinalProject {
         foodPanel.add(dcbCombo);
 
         //drink Panel
-        ImageIcon colaImg=new ImageIcon(getClass().getResource("cola.PNG"));
-        ImageIcon sprImg=new ImageIcon(getClass().getResource("sprite.jpg"));
-        JButton cola=new JButton(colaImg);
-        JButton sprite=new JButton(sprImg);
+        ImageIcon colaImg = new ImageIcon(getClass().getResource("cola.PNG"));
+        ImageIcon sprImg = new ImageIcon(getClass().getResource("sprite.jpg"));
+        ImageIcon pepImg = new ImageIcon(getClass().getResource("pepsi.pdf"));
+        JButton cola = new JButton(colaImg);
+        JButton sprite = new JButton(sprImg);
+        JButton pepsi = new JButton(pepImage);
 
-        JPanel drinks=new JPanel(new GridLayout(4,4,1,1));
+        JPanel drinks = new JPanel(new GridLayout(4,4,1,1));
 
         cola.setPreferredSize(new Dimension(100,100));
         sprite.setPreferredSize(new Dimension(100,100));
+        pepsi.setPreferredSize(new Dimension(100,100));
 
         drinks.add(cola);
         drinks.add(sprite);
+        drinks.add(pepsi);
 
         //add buttons to drink panel
         drinkPanel.add(drinks,BorderLayout.NORTH);
 
         //buttons for drink panel(sizes)
-        JRadioButton small=new JRadioButton("Small");
-        JRadioButton medium=new JRadioButton("Medium");
-        JRadioButton large=new JRadioButton("Large");
+        JRadioButton small = new JRadioButton("Small");
+        JRadioButton medium = new JRadioButton("Medium");
+        JRadioButton large = new JRadioButton("Large");
 
-        ButtonGroup sizegrp=new ButtonGroup();
+        ButtonGroup sizegrp = new ButtonGroup();
         sizegrp.add(small);
         sizegrp.add(medium);
         sizegrp.add(large);
 
         //panel for size of drinks buttons
-        JPanel sizePanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel sizePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         sizePanel.add(small);
         sizePanel.add(medium);
         sizePanel.add(large);
@@ -98,9 +102,9 @@ public class FinalProject {
 
 
         //payment panel
-        JRadioButton cc=new JRadioButton("Credit Card");
-        JRadioButton ven=new JRadioButton("Venmo");
-        JRadioButton cash=new JRadioButton("Cash");
+        JRadioButton cc = new JRadioButton("Credit Card");
+        JRadioButton ven = new JRadioButton("Venmo");
+        JRadioButton cash = new JRadioButton("Cash");
 
         cc.setFont(new Font("Molto",Font.ITALIC,25));
         ven.setFont(new Font("Molto",Font.ITALIC,25));
