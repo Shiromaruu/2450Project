@@ -2,16 +2,20 @@ import javax.swing.*;
 import java.awt.*;
 
 public class FinalProject {
-    FinalProject(){
+    JPanel foodPanel;
+    JPanel drinkPanel;
+    JPanel drinks;
+    JPanel paymentPanel;
+    FinalProject() {
         JFrame jfrm = new JFrame("McGUI's GUI");
         jfrm.setSize(700,600);
         jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //creating panel
         JPanel panel = new JPanel(new BorderLayout());
-        JPanel foodPanel = new JPanel();
-        JPanel drinkPanel = new JPanel(new BorderLayout());
-        JPanel paymentPanel = new JPanel();
+        foodPanel = new JPanel();
+        drinkPanel = new JPanel(new BorderLayout());
+        paymentPanel = new JPanel();
 
         //create splitPane
         JSplitPane splitPane = new JSplitPane();
@@ -23,120 +27,69 @@ public class FinalProject {
         tabbedPane.addTab("Drink",drinkPanel);
         tabbedPane.addTab("Payment",paymentPanel);
 
-        //Food Panel
-        ImageIcon food1 = new ImageIcon(getClass().getResource("cheeseburger.jpg"));
-        ImageIcon food2 = new ImageIcon(getClass().getResource("double cheeseburger.jpg"));
-        ImageIcon food3 = new ImageIcon(getClass().getResource("fries.jpg"));
-        ImageIcon food4 = new ImageIcon(getClass().getResource("cheeseburger combo.jpg"));
-        ImageIcon food5 = new ImageIcon(getClass().getResource("double cheeseburger combo.jpg"));
+        //Food Panel-----
+        setMenuItem("Cheeseburger", "FoodImages/cheeseburger.jpg", foodPanel, 10);
+        setMenuItem("Double Cheeseburger", "FoodImages/double_cheeseburger.jpg", foodPanel, 10);
 
-        JButton cb = new JButton("Cheeseburger",food1);
-        cb.setVerticalTextPosition(SwingConstants.BOTTOM);
-        cb.setHorizontalTextPosition(SwingConstants.CENTER); 
-        JButton dcb = new JButton("Double Cheeseburger",food2);
-        dcb.setVerticalTextPosition(SwingConstants.BOTTOM);
-        dcb.setHorizontalTextPosition(SwingConstants.CENTER);
-        JButton fSmall = new JButton("S Fries",food3);
-        fSmall.setVerticalTextPosition(SwingConstants.BOTTOM);
-        fSmall.setHorizontalTextPosition(SwingConstants.CENTER);
-        JButton fMedium = new JButton("M Fries",food3);
-        fMedium.setVerticalTextPosition(SwingConstants.BOTTOM);
-        fMedium.setHorizontalTextPosition(SwingConstants.CENTER);
-        JButton fLarge = new JButton("L Fries",food3);
-        fLarge.setVerticalTextPosition(SwingConstants.BOTTOM);
-        fLarge.setHorizontalTextPosition(SwingConstants.CENTER);
-        JButton cbCombo = new JButton("Cheeseburger Combo",food4);
-        cbCombo.setVerticalTextPosition(SwingConstants.BOTTOM);
-        cbCombo.setHorizontalTextPosition(SwingConstants.CENTER);
-        JButton dcbCombo = new JButton("Double Cheeseburger Combo",food5);
-        dcbCombo.setVerticalTextPosition(SwingConstants.BOTTOM);
-        dcbCombo.setHorizontalTextPosition(SwingConstants.CENTER);
+        //set fry
+        char[] frySize = {'S', 'M', 'L'};
+        double[] fryCost = {5.00, 6.00, 7.00};
+        for (int i = 0; i < 3; i++) {
+            setMenuItem(frySize[i] + " Fries", "FoodImages/fries.jpg", foodPanel, fryCost[i]);
+        }
 
-        //add food buttons to Food panel
-        foodPanel.add(cb);
-        foodPanel.add(dcb);
-        foodPanel.add(fSmall);
-        foodPanel.add(fMedium);
-        foodPanel.add(fLarge);
-        foodPanel.add(cbCombo);
-        foodPanel.add(dcbCombo);
+        setMenuItem("Cheeseburger Combo", "FoodImages/cheeseburger_combo.jpg", foodPanel, 10);
+        setMenuItem("Double Cheeseburger Combo", "FoodImages/double_cheeseburger_combo.jpg", foodPanel, 10);
 
-        //drink Panel
-        ImageIcon colaImg = new ImageIcon(getClass().getResource("cola.PNG"));
-        ImageIcon sprImg = new ImageIcon(getClass().getResource("sprite.jpg"));
-        ImageIcon pepImg = new ImageIcon(getClass().getResource("pepsi.jpg"));
-        JButton cola = new JButton(colaImg);
-        JButton sprite = new JButton(sprImg);
-        JButton pepsi = new JButton(pepImg);
+        //drink Panel-----
 
-        JPanel drinks = new JPanel(new GridLayout(4,4,1,1));
+        //create drinks panel
+        drinks = new JPanel(new GridLayout(4,4,1,1));
 
-        cola.setPreferredSize(new Dimension(100,100));
-        sprite.setPreferredSize(new Dimension(100,100));
-        pepsi.setPreferredSize(new Dimension(100,100));
+        //create buttons
+        setMenuItem("Cola", "FoodImages/cola.PNG", drinkPanel, 5.00);
+        setMenuItem("Pepsi", "FoodImages/pepsi.jpg", drinkPanel, 5.00);
+        setMenuItem("Sprite", "FoodImages/sprite.jpg", drinkPanel, 5.00);
 
-        drinks.add(cola);
-        drinks.add(sprite);
-        drinks.add(pepsi);
 
-        //add buttons to drink panel
-        drinkPanel.add(drinks,BorderLayout.NORTH);
+        drinkPanel.add(drinks,BorderLayout.NORTH); //add buttons to drink panel
 
-        //buttons for drink panel(sizes)
-        JRadioButton small = new JRadioButton("Small");
-        JRadioButton medium = new JRadioButton("Medium");
-        JRadioButton large = new JRadioButton("Large");
-
-        ButtonGroup sizegrp = new ButtonGroup();
-        sizegrp.add(small);
-        sizegrp.add(medium);
-        sizegrp.add(large);
-
-        //panel for size of drinks buttons
+        //buttons for drink panel(sizes)-----
+        ButtonGroup sizeGroup = new ButtonGroup();
         JPanel sizePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        sizePanel.add(small);
-        sizePanel.add(medium);
-        sizePanel.add(large);
+
+        String[] drinkSizes = {"Small", "Medium", "Large"}; //create sizes for drinks
+        for (String drinkSize : drinkSizes) {
+            setDrinkSize(drinkSize, sizeGroup, sizePanel); //create radioButtons
+        }
 
         drinkPanel.add(sizePanel,BorderLayout.SOUTH);
 
+        //payment panel-----
+        ButtonGroup bg = new ButtonGroup();
 
-        //payment panel
-        JRadioButton cc = new JRadioButton("Credit Card");
-        JRadioButton ven = new JRadioButton("Venmo");
-        JRadioButton cash = new JRadioButton("Cash");
-
-        cc.setFont(new Font("Molto",Font.ITALIC,25));
-        ven.setFont(new Font("Molto",Font.ITALIC,25));
-        cash.setFont(new Font("Molto", Font.ITALIC,25));
-
-        //add to button group for mutual exclusive function(one only)
-        ButtonGroup bg=new ButtonGroup();
-        bg.add(cc);
-        bg.add(ven);
-        bg.add(cash);
-
-        paymentPanel.add(cc);
-        paymentPanel.add(ven);
-        paymentPanel.add(cash);
+        String[] paymentType = {"Credit Card", "Venmo", "Cash"};
+        for (String s : paymentType) {
+            setPaymentTypes(s, bg); //sets payment types
+        }
 
         //creating labels
         JLabel shopping_cart = new JLabel("Shopping Cart");
-        shopping_cart.setFont(new Font("Molto", Font.BOLD, 25));
+        shopping_cart.setFont(setDefaultFont(25));
 
         //button panel for right component
-        JPanel buttonPanel=new JPanel();
+        JPanel buttonPanel = new JPanel();
 
         //setting button panel to be aligned along left side of right panel
         buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         //clear and checkout buttons
-        JButton clear=new JButton("Clear");
-        JButton check=new JButton("Check Out");
-        clear.setPreferredSize(new Dimension(150,50));
-        check.setPreferredSize(new Dimension(150,50));
-        buttonPanel.add(check);
-        buttonPanel.add(clear);
+        JButton clearBtn = new JButton("Clear");
+        JButton checkOutBtn = new JButton("Check Out");
+        clearBtn.setPreferredSize(new Dimension(150,50));
+        checkOutBtn.setPreferredSize(new Dimension(150,50));
+        buttonPanel.add(checkOutBtn);
+        buttonPanel.add(clearBtn);
 
         //adding buttonPanel to the bottom of the panel
         panel.add(buttonPanel,BorderLayout.SOUTH);
@@ -154,7 +107,77 @@ public class FinalProject {
         //set visible
         jfrm.setVisible(true);
     }
+    //default font generator for the java file
+    public Font setDefaultFont (int font) {
+        return new Font ("Molto",Font.ITALIC,font);
+    }
+    public void setMenuItem(String foodName, String filePath, JPanel menuPanel, double cost) {
+        if (menuPanel.equals(foodPanel)) {
+            foodItem(foodName, filePath, cost);
+        }
+        else if (menuPanel.equals(drinkPanel)) {
+            drinkItem(filePath, cost);
+        }
+    }
+    private void foodItem(String foodName, String filePath, double cost) {
+        //creates image icon
+        ImageIcon foodIcon = new ImageIcon(getClass().getResource(filePath));
+        //create JButton
+        JButton foodButton = new JButton(foodName, foodIcon);
+        //align text position
+        foodButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        foodButton.setHorizontalTextPosition(SwingConstants.CENTER);
 
+        //set action listener
+        FoodListener(foodButton, cost);
+
+        //add to food Panel
+        foodPanel.add(foodButton);
+    }
+
+    private void drinkItem(String filePath, double cost) {
+        //create image icon
+        ImageIcon drinkImg = new ImageIcon(getClass().getResource(filePath));
+
+        //create JButton
+        JButton drinkButton = new JButton(drinkImg);
+
+        //get preferred image size
+        drinkButton.setPreferredSize(new Dimension(100,100));
+
+        FoodListener(drinkButton, cost);
+
+        //add to panel
+        drinks.add(drinkButton);
+    }
+    private void FoodListener (JButton foodButton, double cost) {
+        foodButton.addActionListener(e -> {
+            //create logic to deal with costs
+        });
+    }
+    public void setPaymentTypes(String paymentType, ButtonGroup buttonGroup){
+        PaymentTypes(paymentType, buttonGroup);
+    }
+    private void PaymentTypes (String paymentType, ButtonGroup buttonGroup) {
+        JRadioButton paymentTypeButton = new JRadioButton(paymentType);
+        paymentTypeButton.setFont(setDefaultFont(25));
+        buttonGroup.add(paymentTypeButton);
+        paymentPanel.add(paymentTypeButton);
+    }
+    public void setDrinkSize (String size, ButtonGroup sizeGroup, JPanel sizePanel ) {
+        DrinkSize(size, sizeGroup, sizePanel);
+    }
+    private void DrinkSize (String size, ButtonGroup sizeGroup, JPanel sizePanel) {
+        JRadioButton drinkSize = new JRadioButton(size);
+        sizeGroup.add(drinkSize);
+        sizePanel.add(drinkSize);
+        DrinkSizeListener(drinkSize);
+    }
+    private void DrinkSizeListener (JRadioButton drinkSize) {
+        drinkSize.addActionListener(e -> {
+            //add code to change the drink listener
+        });
+    }
     public static void main(String[] args){
         SwingUtilities.invokeLater(FinalProject::new);
     }
