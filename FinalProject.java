@@ -49,9 +49,9 @@ public class FinalProject {
         drinks = new JPanel(new GridLayout(4,4,1,1));
 
         //create buttons
-        setMenuItem("Cola", "FoodImages/cola.PNG", drinkPanel, 5.00);
-        setMenuItem("Pepsi", "FoodImages/pepsi.jpg", drinkPanel, 5.00);
-        setMenuItem("Sprite", "FoodImages/sprite.jpg", drinkPanel, 5.00);
+        setMenuItem("Cola", "FoodImages/cola.PNG", drinkPanel, 3.00);
+        setMenuItem("Pepsi", "FoodImages/pepsi.jpg", drinkPanel, 3.00);
+        setMenuItem("Sprite", "FoodImages/sprite.jpg", drinkPanel, 3.00);
 
 
         drinkPanel.add(drinks,BorderLayout.NORTH); //add buttons to drink panel
@@ -88,10 +88,12 @@ public class FinalProject {
         //clear and checkout buttons
         JButton clearBtn = new JButton("Clear");
         JButton checkOutBtn = new JButton("Check Out");
+        JLabel totalLabel = new JLabel("Total: $0.00");
         clearBtn.setPreferredSize(new Dimension(150,50));
         checkOutBtn.setPreferredSize(new Dimension(150,50));
         buttonPanel.add(checkOutBtn);
         buttonPanel.add(clearBtn);
+        buttonPanel.add(totalLabel);
 
         clearBtn.addActionListener(new ClearButtonClickListener());
         checkOutBtn.addActionListener(new ButtonClickListener());
@@ -158,6 +160,10 @@ public class FinalProject {
     private void FoodListener (JButton foodButton, double cost) {
         foodButton.addActionListener(e -> {
             //create logic to deal with costs
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                foodCost();
+            }
         });
     }
     public void setPaymentTypes(String paymentType, ButtonGroup buttonGroup){
@@ -181,9 +187,13 @@ public class FinalProject {
     private void DrinkSizeListener (JRadioButton drinkSize) {
         drinkSize.addActionListener(e -> {
             //add code to change the drink listener
-            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                drinkCost();
+            }
         });
     }
+    private void drinkCost
     public static void main(String[] args){
         SwingUtilities.invokeLater(FinalProject::new);
     }
