@@ -93,6 +93,9 @@ public class FinalProject {
         buttonPanel.add(checkOutBtn);
         buttonPanel.add(clearBtn);
 
+        clearBtn.addActionListener(new ClearButtonClickListener());
+        checkOutBtn.addActionListener(new ButtonClickListener());
+
         //adding buttonPanel to the bottom of the panel
         panel.add(buttonPanel,BorderLayout.SOUTH);
 
@@ -178,6 +181,7 @@ public class FinalProject {
     private void DrinkSizeListener (JRadioButton drinkSize) {
         drinkSize.addActionListener(e -> {
             //add code to change the drink listener
+            
         });
     }
     public static void main(String[] args){
