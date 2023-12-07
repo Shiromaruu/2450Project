@@ -96,11 +96,13 @@ public class FinalProject {
         buttonPanel.add(checkOutBtn);
         buttonPanel.add(clearBtn);
         buttonPanel.add(totalLabel);
+        buttonPanel.add(itemList);
+        buttonPanel.add(listModel);
 
-        clearBtn.addActionListener(new ClearButtonClickListener());
+        setMenuItem.addActionListener(new ClearButtonClickListener());
         checkOutBtn.addActionListener(new ButtonClickListener());
 
-        private void checkOutBtn {
+        private class ButtonClickListener implements ActionListener {
             private String itemName;
             public ButtonClickListener(String itemName) {
                 this.itemName = itemName;
@@ -111,7 +113,7 @@ public class FinalProject {
             }
         }
 
-        private void clearBtn {
+        private class ClearButtonClickListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e){
                 listModel.clear();
