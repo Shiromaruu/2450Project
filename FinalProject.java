@@ -91,12 +91,32 @@ public class FinalProject {
         JLabel totalLabel = new JLabel("Total: $0.00");
         clearBtn.setPreferredSize(new Dimension(150,50));
         checkOutBtn.setPreferredSize(new Dimension(150,50));
+        listModel = new DefaultListModel<>();
+        itemList = new JList<>();
         buttonPanel.add(checkOutBtn);
         buttonPanel.add(clearBtn);
         buttonPanel.add(totalLabel);
 
         clearBtn.addActionListener(new ClearButtonClickListener());
         checkOutBtn.addActionListener(new ButtonClickListener());
+
+        private void checkOutBtn {
+            private String itemName;
+            public ButtonClickListener(String itemName) {
+                this.itemName = itemName;
+            }
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listModel.addElement(itemName);
+            }
+        }
+
+        private void clearBtn {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                listModel.clear();
+            }
+        }
 
         //adding buttonPanel to the bottom of the panel
         panel.add(buttonPanel,BorderLayout.SOUTH);
