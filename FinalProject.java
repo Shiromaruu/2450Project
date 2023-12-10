@@ -166,7 +166,7 @@ public class FinalProject {
             //create logic to deal with costs
             @Override
             public void actionPerformed(ActionEvent e) {
-                foodCost();
+                listModel.addElement();
             }
         });
     }
@@ -193,7 +193,7 @@ public class FinalProject {
             //add code to change the drink listener
             @Override
             public void actionPerformed(ActionEvent e) {
-                drinkCost();
+                listModel.addElement();
             }
         });
     }
