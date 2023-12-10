@@ -102,24 +102,6 @@ public class FinalProject {
         setMenuItem.addActionListener(new ClearButtonClickListener());
         checkOutBtn.addActionListener(new ButtonClickListener());
 
-        private class ButtonClickListener implements ActionListener {
-            private String itemName;
-            public ButtonClickListener(String itemName) {
-                this.itemName = itemName;
-            }
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                listModel.addElement(itemName);
-            }
-        }
-
-        private class ClearButtonClickListener implements ActionListener {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                listModel.clear();
-            }
-        }
-
         //adding buttonPanel to the bottom of the panel
         panel.add(buttonPanel,BorderLayout.SOUTH);
 
@@ -215,7 +197,24 @@ public class FinalProject {
             }
         });
     }
-    private void drinkCost
+
+    private class ButtonClickListener implements ActionListener {
+        private String itemName;
+        public ButtonClickListener(String itemName) {
+            this.itemName = itemName;
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            listModel.addElement(itemName);
+        }
+    }
+
+    private class ClearButtonClickListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e){
+            listModel.clear();
+        }
+    }
     public static void main(String[] args){
         SwingUtilities.invokeLater(FinalProject::new);
     }
