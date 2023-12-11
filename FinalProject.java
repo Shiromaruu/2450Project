@@ -1,3 +1,4 @@
+//
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -161,7 +162,7 @@ public class FinalProject {
         //get preferred image size
         drinkButton.setPreferredSize(new Dimension(100,100));
 
-        FoodListener(drinkButton, cost);
+        DrinkListener(drinkButton, cost);
 
         //add to panel
         drinks.add(drinkButton);
