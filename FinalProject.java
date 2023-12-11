@@ -128,10 +128,10 @@ public class FinalProject {
     }
     
     public void setMenuItem(String foodName, String filePath, JPanel menuPanel, double cost) {
-        if (foodPanel != null) {
+        if (menuPanel == foodPanel) {
             foodItem(foodName, filePath, cost);
         }
-        else if (drinkPanel != null) {
+        else if (menuPanel == drinkPanel) {
             drinkItem(filePath, cost);
         }
     }
@@ -185,11 +185,11 @@ public class FinalProject {
         DrinkSize(size, sizeGroup, sizePanel);
     }
     
-    private void DrinkSize (String size, ButtonGroup sizeGroup, JPanel sizePanel) {
+    private void DrinkSize (String size, ButtonGroup sizeGroup, JPanel sizePanel, double cost) {
         JRadioButton drinkSize = new JRadioButton(size);
         sizeGroup.add(drinkSize);
         sizePanel.add(drinkSize);
-        DrinkSizeListener(drinkSize);
+        DrinkSizeListener(drinkSize, cost);
     }
     
     private void DrinkSizeListener (JRadioButton drinkSize) {
