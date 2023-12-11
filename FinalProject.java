@@ -162,8 +162,6 @@ public class FinalProject {
         //get preferred image size
         drinkButton.setPreferredSize(new Dimension(100,100));
 
-        DrinkListener(drinkButton, cost);
-
         //add to panel
         drinks.add(drinkButton);
     }
