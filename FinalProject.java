@@ -112,7 +112,7 @@ public class FinalProject {
         buttonPanel.add(clearBtn);
 
         clearBtn.addActionListener(new ClearButtonClickListener());
-        checkOutBtn.addActionListener(new ButtonClickListener());
+        checkOutBtn.addActionListener(new CheckoutButtonClickListener());
 
         //adding buttonPanel to the bottom of the panel
         panel.add(buttonPanel,BorderLayout.SOUTH);
@@ -226,6 +226,16 @@ public class FinalProject {
             totalLabel.setText("Total Cost: $0.00");
         }
     }
+
+    private class CheckoutButtonClickListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            listModel.addElement("Plus 7% tax");
+            double result;
+            result = totalCost + totalCost * 0.07;
+            totalLabel.setText("Total Cost: $" + result);
+        }
+    }
+    
     public static void main(String[] args){
         SwingUtilities.invokeLater(FinalProject::new);
     }
