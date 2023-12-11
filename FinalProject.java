@@ -99,7 +99,7 @@ public class FinalProject {
         buttonPanel.add(itemList);
         buttonPanel.add(listModel);
 
-        setMenuItem.addActionListener(new ClearButtonClickListener());
+        clearBtn.addActionListener(new ClearButtonClickListener());
         checkOutBtn.addActionListener(new ButtonClickListener());
 
         //adding buttonPanel to the bottom of the panel
@@ -166,7 +166,7 @@ public class FinalProject {
             //create logic to deal with costs
             @Override
             public void actionPerformed(ActionEvent e) {
-                listModel.addElement();
+                listModel.addElement("Food: " + foodButton.getText() + " - Cost: $" + cost);
             }
         });
     }
@@ -193,24 +193,16 @@ public class FinalProject {
             //add code to change the drink listener
             @Override
             public void actionPerformed(ActionEvent e) {
-                listModel.addElement();
+                listModel.addElement("Food: " + drinkButton.getText() + " - Cost: $" + cost);
             }
         });
     }
 
     private class ButtonClickListener implements ActionListener {
-        private String itemName;
-        public ButtonClickListener(String itemName) {
-            this.itemName = itemName;
-        }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            listModel.addElement(itemName);
-        }
+        totalLabel.setText("Total: $" + cost);
     }
 
     private class ClearButtonClickListener implements ActionListener {
-        @Override
         public void actionPerformed(ActionEvent e){
             listModel.clear();
         }
