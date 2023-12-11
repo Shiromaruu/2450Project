@@ -98,7 +98,7 @@ public class FinalProject {
         //clear and checkout buttons
         JButton clearBtn = new JButton("Clear");
         JButton checkOutBtn = new JButton("Check Out");
-        totalLabel = new JLabel("Total: $0.00");
+        totalLabel = new JLabel("Total Cost: $0.00");
         clearBtn.setPreferredSize(new Dimension(150,50));
         checkOutBtn.setPreferredSize(new Dimension(150,50));
 
@@ -165,7 +165,7 @@ public class FinalProject {
         foodButton.addActionListener(e -> {
             listModel.addElement("Food: " + foodButton.getText() + " - Cost: $" + cost);
             totalCost += cost;
-            totalLabel.setText("Total: $" + totalCost);
+            totalLabel.setText("Total Cost: $" + totalCost);
         });
     }
     private void drinkItem(String drinkName, String filePath, double cost) {
@@ -202,7 +202,7 @@ public class FinalProject {
             }
 
             totalCost += drinkCost;
-            totalLabel.setText("Total: $" + totalCost);
+            totalLabel.setText("Total Cost: $" + totalCost);
         });
     }
     public void setPaymentTypes(String paymentType, ButtonGroup buttonGroup){
@@ -216,12 +216,14 @@ public class FinalProject {
     }
     private class ButtonClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            totalLabel.setText("Total: $" + totalCost);
+            totalLabel.setText("Total Cost: $" + totalCost);
         }
     }
     private class ClearButtonClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e){
             listModel.clear();
+            totalCost = 0;
+            totalLabel.setText("Total Cost: $0.00");
         }
     }
     public static void main(String[] args){
