@@ -1,4 +1,3 @@
-//
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +13,7 @@ public class FinalProject {
     
     FinalProject() {
         JFrame jfrm = new JFrame("McGUI's GUI");
-        jfrm.setSize(700,600);
+        jfrm.setSize(800,600);
         jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //creating panel
@@ -95,13 +94,16 @@ public class FinalProject {
         totalLabel = new JLabel("Total: $0.00");
         clearBtn.setPreferredSize(new Dimension(150,50));
         checkOutBtn.setPreferredSize(new Dimension(150,50));
+
         listModel = new DefaultListModel<>();
         JList<String> itemList = new JList<>(listModel);
-        
+        JScrollPane boughtItemPanel = new JScrollPane(itemList);
+        panel.add(boughtItemPanel);
+
+        buttonPanel.add(totalLabel);
         buttonPanel.add(checkOutBtn);
         buttonPanel.add(clearBtn);
-        buttonPanel.add(totalLabel);
-        buttonPanel.add(itemList);
+
 
         clearBtn.addActionListener(new ClearButtonClickListener());
         checkOutBtn.addActionListener(new ButtonClickListener());
@@ -118,6 +120,7 @@ public class FinalProject {
 
         //add to frame
         jfrm.add(splitPane);
+        jfrm.add(splitPane);
 
         //set visible
         jfrm.setVisible(true);
@@ -128,10 +131,10 @@ public class FinalProject {
     }
     
     public void setMenuItem(String foodName, String filePath, JPanel menuPanel, double cost) {
-        if (foodPanel != null) {
+        if (menuPanel.equals(foodPanel)) {
             foodItem(foodName, filePath, cost);
         }
-        else if (drinkPanel != null) {
+        else if (menuPanel.equals(drinkPanel)) {
             drinkItem(filePath, cost);
         }
     }
@@ -146,10 +149,13 @@ public class FinalProject {
         foodButton.setHorizontalTextPosition(SwingConstants.CENTER);
 
         //set action listener
-        FoodListener(foodButton, cost);
+        foodListener(foodButton, cost);
 
         //add to food Panel
         foodPanel.add(foodButton);
+    }
+    private void foodListener(JButton foodButton, double cost) {
+        foodButton.addActionListener(e -> listModel.addElement("Food: " + foodButton.getText() + " - Cost: $" + cost));
     }
 
     private void drinkItem(String filePath, double cost) {
@@ -162,42 +168,35 @@ public class FinalProject {
         //get preferred image size
         drinkButton.setPreferredSize(new Dimension(100,100));
 
-        DrinkListener(drinkButton, cost);
+        //add drink listener
+        drinkSizeListener(drinkButton, cost);
 
         //add to panel
         drinks.add(drinkButton);
     }
-    
-    private void FoodListener (JButton foodButton, double cost) {
-        foodButton.addActionListener(e -> listModel.addElement("Food: " + foodButton.getText() + " - Cost: $" + cost));
+    public void setDrinkSize (String size, ButtonGroup sizeGroup, JPanel sizePanel ) {
+        drinkSize(size, sizeGroup, sizePanel);
     }
-    
+
+    private void drinkSize(String size, ButtonGroup sizeGroup, JPanel sizePanel) {
+        JRadioButton drinkSize = new JRadioButton(size);
+        sizeGroup.add(drinkSize);
+        sizePanel.add(drinkSize);
+    }
+
+    private void drinkSizeListener(JButton drinkSize, double cost) {
+        drinkSize.addActionListener(e -> listModel.addElement("Drink Size: " + drinkSize.getText() + " - Cost: $" + cost));
+    }
     public void setPaymentTypes(String paymentType, ButtonGroup buttonGroup){
-        PaymentTypes(paymentType, buttonGroup);
+        paymentTypes(paymentType, buttonGroup);
     }
     
-    private void PaymentTypes (String paymentType, ButtonGroup buttonGroup) {
+    private void paymentTypes(String paymentType, ButtonGroup buttonGroup) {
         JRadioButton paymentTypeButton = new JRadioButton(paymentType);
         paymentTypeButton.setFont(setDefaultFont(25));
         buttonGroup.add(paymentTypeButton);
         paymentPanel.add(paymentTypeButton);
     }
-    
-    public void setDrinkSize (String size, ButtonGroup sizeGroup, JPanel sizePanel ) {
-        DrinkSize(size, sizeGroup, sizePanel);
-    }
-    
-    private void DrinkSize (String size, ButtonGroup sizeGroup, JPanel sizePanel) {
-        JRadioButton drinkSize = new JRadioButton(size);
-        sizeGroup.add(drinkSize);
-        sizePanel.add(drinkSize);
-        DrinkSizeListener(drinkSize);
-    }
-    
-    private void DrinkSizeListener (JRadioButton drinkSize) {
-        drinkSize.addActionListener(e -> listModel.addElement("Drink Size: " + drinkSize.getText() + " - Cost: $" + cost));
-    }
-
     private class ButtonClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             double totalCost = calculateTotalCost();
