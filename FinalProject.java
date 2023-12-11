@@ -63,10 +63,17 @@ public class FinalProject {
         ButtonGroup sizeGroup = new ButtonGroup();
         JPanel sizePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        String[] drinkSizes = {"Small", "Medium", "Large"}; //create sizes for drinks
-        for (String drinkSize : drinkSizes) {
-            setDrinkSize(drinkSize, sizeGroup, sizePanel); //create radioButtons
-        }
+        small = new JRadioButton("Small");
+        sizeGroup.add(small);
+        sizePanel.add(small);
+
+        medium = new JRadioButton("Medium");
+        sizeGroup.add(medium);
+        sizePanel.add(medium);
+
+        large = new JRadioButton("Large");
+        sizeGroup.add(large);
+        sizePanel.add(large);
 
         drinkPanel.add(sizePanel,BorderLayout.SOUTH);
 
@@ -125,6 +132,9 @@ public class FinalProject {
         //set visible
         jfrm.setVisible(true);
     }
+    JRadioButton small;
+    JRadioButton medium;
+    JRadioButton large;
     //default font generator for the java file
     public Font setDefaultFont (int font) {
         return new Font ("Molto",Font.ITALIC,font);
@@ -155,7 +165,11 @@ public class FinalProject {
         foodPanel.add(foodButton);
     }
     private void foodListener(JButton foodButton, double cost) {
-        foodButton.addActionListener(e -> listModel.addElement("Food: " + foodButton.getText() + " - Cost: $" + cost));
+        foodButton.addActionListener(e -> {
+            listModel.addElement("Food: " + foodButton.getText() + " - Cost: $" + cost);
+            totalCost += cost;
+            totalLabel.setText("Total: $" + totalCost);
+        });
     }
 
     private void drinkItem(String filePath, double cost) {
@@ -169,23 +183,30 @@ public class FinalProject {
         drinkButton.setPreferredSize(new Dimension(100,100));
 
         //add drink listener
-        drinkSizeListener(drinkButton, cost);
+        drinkListener(drinkButton);
 
         //add to panel
         drinks.add(drinkButton);
     }
-    public void setDrinkSize (String size, ButtonGroup sizeGroup, JPanel sizePanel ) {
-        drinkSize(size, sizeGroup, sizePanel);
-    }
+    double totalCost;
+    private void drinkListener(JButton drink) {
+        drink.addActionListener(e -> {
+            double drinkCost = 0;
+            if (small.isSelected()) {
+                 drinkCost= 2;
+                listModel.addElement("Small Drink: " + drink.getText() + " - Cost: $" + drinkCost);
 
-    private void drinkSize(String size, ButtonGroup sizeGroup, JPanel sizePanel) {
-        JRadioButton drinkSize = new JRadioButton(size);
-        sizeGroup.add(drinkSize);
-        sizePanel.add(drinkSize);
-    }
+            } else if (medium.isSelected()) {
+                drinkCost= 3.50;
+                listModel.addElement("Medium Drink: " + drink.getText() + " - Cost: $" + drinkCost);
+            } else if (large.isSelected()) {
+                drinkCost= 4;
+                listModel.addElement("Large Drink: " + drink.getText() + " - Cost: $" + drinkCost);
+            }
 
-    private void drinkSizeListener(JButton drinkSize, double cost) {
-        drinkSize.addActionListener(e -> listModel.addElement("Drink Size: " + drinkSize.getText() + " - Cost: $" + cost));
+            totalCost += drinkCost;
+            totalLabel.setText("Total: $" + totalCost);
+        });
     }
     public void setPaymentTypes(String paymentType, ButtonGroup buttonGroup){
         paymentTypes(paymentType, buttonGroup);
@@ -199,22 +220,9 @@ public class FinalProject {
     }
     private class ButtonClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            double totalCost = calculateTotalCost();
             totalLabel.setText("Total: $" + totalCost);
         }
-        private double calculateTotalCost() {
-            double totalCost = 0.0;
-            for (int i=0; i < listModel.getSize(); i++) {
-                String item = listModel.getElementAt(i);
-                String[] parts = item.split(" - Cost:\\$");
-                if(parts.length == 2) {
-                    totalCost += Double.parseDouble(parts[1]);
-                }
-            }
-            return totalCost;
-        }
     }
-
     private class ClearButtonClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e){
             listModel.clear();
