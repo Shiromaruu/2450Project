@@ -62,7 +62,7 @@ public class FinalProject {
         //buttons for drink panel(sizes)-----
         ButtonGroup sizeGroup = new ButtonGroup();
         JPanel sizePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
+        
         small = new JRadioButton("Small");
         sizeGroup.add(small);
         sizePanel.add(small);
@@ -111,7 +111,6 @@ public class FinalProject {
         buttonPanel.add(checkOutBtn);
         buttonPanel.add(clearBtn);
 
-
         clearBtn.addActionListener(new ClearButtonClickListener());
         checkOutBtn.addActionListener(new ButtonClickListener());
 
@@ -139,16 +138,14 @@ public class FinalProject {
     public Font setDefaultFont (int font) {
         return new Font ("Molto",Font.ITALIC,font);
     }
-    
     public void setMenuItem(String foodName, String filePath, JPanel menuPanel, double cost) {
         if (menuPanel.equals(foodPanel)) {
             foodItem(foodName, filePath, cost);
         }
         else if (menuPanel.equals(drinkPanel)) {
-            drinkItem(filePath, cost);
+            drinkItem(foodName, filePath, cost);
         }
     }
-    
     private void foodItem(String foodName, String filePath, double cost) {
         //creates image icon
         ImageIcon foodIcon = new ImageIcon(getClass().getResource(filePath));
@@ -171,13 +168,13 @@ public class FinalProject {
             totalLabel.setText("Total: $" + totalCost);
         });
     }
-
-    private void drinkItem(String filePath, double cost) {
+    private void drinkItem(String drinkName, String filePath, double cost) {
         //create image icon
         ImageIcon drinkImg = new ImageIcon(getClass().getResource(filePath));
 
         //create JButton
         JButton drinkButton = new JButton(drinkImg);
+        drinkButton.setName(drinkName);
 
         //get preferred image size
         drinkButton.setPreferredSize(new Dimension(100,100));
@@ -194,14 +191,14 @@ public class FinalProject {
             double drinkCost = 0;
             if (small.isSelected()) {
                  drinkCost= 2;
-                listModel.addElement("Small Drink: " + drink.getText() + " - Cost: $" + drinkCost);
+                listModel.addElement("Small Drink: " + drink.getName() + " - Cost: $" + drinkCost);
 
             } else if (medium.isSelected()) {
                 drinkCost= 3.50;
-                listModel.addElement("Medium Drink: " + drink.getText() + " - Cost: $" + drinkCost);
+                listModel.addElement("Medium Drink: " + drink.getName() + " - Cost: $" + drinkCost);
             } else if (large.isSelected()) {
                 drinkCost= 4;
-                listModel.addElement("Large Drink: " + drink.getText() + " - Cost: $" + drinkCost);
+                listModel.addElement("Large Drink: " + drink.getName() + " - Cost: $" + drinkCost);
             }
 
             totalCost += drinkCost;
@@ -211,7 +208,6 @@ public class FinalProject {
     public void setPaymentTypes(String paymentType, ButtonGroup buttonGroup){
         paymentTypes(paymentType, buttonGroup);
     }
-    
     private void paymentTypes(String paymentType, ButtonGroup buttonGroup) {
         JRadioButton paymentTypeButton = new JRadioButton(paymentType);
         paymentTypeButton.setFont(setDefaultFont(25));
