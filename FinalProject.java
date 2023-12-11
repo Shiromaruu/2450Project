@@ -8,6 +8,9 @@ public class FinalProject {
     JPanel drinkPanel;
     JPanel drinks;
     JPanel paymentPanel;
+    DefaultListModel<String> listModel;
+    JLabel totalLabel;
+    
     FinalProject() {
         JFrame jfrm = new JFrame("McGUI's GUI");
         jfrm.setSize(700,600);
@@ -88,16 +91,16 @@ public class FinalProject {
         //clear and checkout buttons
         JButton clearBtn = new JButton("Clear");
         JButton checkOutBtn = new JButton("Check Out");
-        JLabel totalLabel = new JLabel("Total: $0.00");
+        totalLabel = new JLabel("Total: $0.00");
         clearBtn.setPreferredSize(new Dimension(150,50));
         checkOutBtn.setPreferredSize(new Dimension(150,50));
         listModel = new DefaultListModel<>();
-        itemList = new JList<>();
+        JList<String> itemList = new JList<>(listModel);
+        
         buttonPanel.add(checkOutBtn);
         buttonPanel.add(clearBtn);
         buttonPanel.add(totalLabel);
         buttonPanel.add(itemList);
-        buttonPanel.add(listModel);
 
         clearBtn.addActionListener(new ClearButtonClickListener());
         checkOutBtn.addActionListener(new ButtonClickListener());
@@ -122,14 +125,16 @@ public class FinalProject {
     public Font setDefaultFont (int font) {
         return new Font ("Molto",Font.ITALIC,font);
     }
+    
     public void setMenuItem(String foodName, String filePath, JPanel menuPanel, double cost) {
-        if (menuPanel.equals(foodPanel)) {
+        if (foodPanel != null) {
             foodItem(foodName, filePath, cost);
         }
-        else if (menuPanel.equals(drinkPanel)) {
+        else if (drinkPanel != null) {
             drinkItem(filePath, cost);
         }
     }
+    
     private void foodItem(String foodName, String filePath, double cost) {
         //creates image icon
         ImageIcon foodIcon = new ImageIcon(getClass().getResource(filePath));
@@ -161,45 +166,53 @@ public class FinalProject {
         //add to panel
         drinks.add(drinkButton);
     }
+    
     private void FoodListener (JButton foodButton, double cost) {
-        foodButton.addActionListener(e -> {
-            //create logic to deal with costs
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                listModel.addElement("Food: " + foodButton.getText() + " - Cost: $" + cost);
-            }
-        });
+        foodButton.addActionListener(e -> listModel.addElement("Food: " + foodButton.getText() + " - Cost: $" + cost));
     }
+    
     public void setPaymentTypes(String paymentType, ButtonGroup buttonGroup){
         PaymentTypes(paymentType, buttonGroup);
     }
+    
     private void PaymentTypes (String paymentType, ButtonGroup buttonGroup) {
         JRadioButton paymentTypeButton = new JRadioButton(paymentType);
         paymentTypeButton.setFont(setDefaultFont(25));
         buttonGroup.add(paymentTypeButton);
         paymentPanel.add(paymentTypeButton);
     }
+    
     public void setDrinkSize (String size, ButtonGroup sizeGroup, JPanel sizePanel ) {
         DrinkSize(size, sizeGroup, sizePanel);
     }
+    
     private void DrinkSize (String size, ButtonGroup sizeGroup, JPanel sizePanel) {
         JRadioButton drinkSize = new JRadioButton(size);
         sizeGroup.add(drinkSize);
         sizePanel.add(drinkSize);
         DrinkSizeListener(drinkSize);
     }
+    
     private void DrinkSizeListener (JRadioButton drinkSize) {
-        drinkSize.addActionListener(e -> {
-            //add code to change the drink listener
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                listModel.addElement("Food: " + drinkButton.getText() + " - Cost: $" + cost);
-            }
-        });
+        drinkSize.addActionListener(e -> listModel.addElement("Drink Size: " + drinkSize.getText() + " - Cost: $" + cost));
     }
 
     private class ButtonClickListener implements ActionListener {
-        totalLabel.setText("Total: $" + cost);
+        public void actionPerformed(ActionEvent e) {
+            double totalCost = calculateTotalCost();
+            totalLabel.setText("Total: $" + totalCost);
+        }
+        private double calculateTotalCost() {
+            double totalCost = 0.0;
+            for (int i=0; i < listModel.getSize(); i++) {
+                String item = listModel.getElementAt(i);
+                String[] parts = item.split(" - Cost:\\$");
+                if(parts.length == 2) {
+                    totalCost += Double.parseDouble(parts[1]);
+                }
+            }
+            return totalCost;
+        }
     }
 
     private class ClearButtonClickListener implements ActionListener {
@@ -211,3 +224,4 @@ public class FinalProject {
         SwingUtilities.invokeLater(FinalProject::new);
     }
 }
+ 
